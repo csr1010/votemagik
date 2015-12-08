@@ -1,0 +1,183 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>vote magik</title>
+
+<script type = text/javascript src = "jquery.js"></script>
+<script type = text/javascript src = "usc.js"></script>
+<script type = text/javascript src = "backbone.js"></script>
+<script type = text/javascript src = "test.js"></script>
+<script type="text/javascript" src="jquery.countdown.js"></script>
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="jquery.countdown.css" rel="stylesheet" media="screen">  
+<link href='http://fonts.googleapis.com/css?family=Freckle+Face' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div class = container id = header>
+
+</div>
+
+
+
+<div class="container"  id = register>
+
+</div>
+<div class = container>
+
+
+<div class= 'row'  id = results>
+
+ 
+</div>
+</div>
+
+<script type="text/template" id="resultsDiv">
+<legend>Current TOP 5 winners</legend>
+<div class= 'span2 btn-primary' style="margin-left:10px !important;">Timeout in <br> <br><span style="font-size:19px;font-weight:bold"><%= timeOut%> Secs </span></div>
+<%
+var arr = ["btn-danger","btn-success","btn-warning","btn-info","btn-inverse"];
+//alert(resultsObj.get('resultsJson')["Best producer"])
+resultsObj.on("change:resultsJson",function(model){
+			alert(resultsObj.get('resultsJson')["Best Acotr"])
+			});
+for(var i in resultsJson){
+var timeOuts = Math.floor(Math.random()*10/2);
+%>
+	<div class= "span2 <%= arr[timeOuts]%>"> 
+	<ol >
+	<% var parsedJson  = JSON.parse(resultsJson[i]);
+	var results  =parsedJson.result;%>
+    <span style="font-size:17px;font-weight:bold"> <%= i %> </span>
+	<div >Name   marks</div>
+	<% for(var j in results){
+	%>
+	    <li> <%= results[j].empname %> <%= results[j].marks %></li>
+	<% }%>
+ </ol>
+</div>
+<%}%>
+ 
+
+
+</script>
+
+<script type="text/template" id="hedTiles">
+<div class = 'row  btn-primary'>
+<div class = 'span5' style="margin-top:20px;">
+<span class= projectTitle>Vote Magik</span>
+</div>
+<div class = 'span4' >
+<div  id="logForm" class="form-inline" style="margin-top:5px;">
+<div class="control-group">
+<div class="controls">
+  <div class="input-prepend">
+ <span class="add-on"><i class="icon-user"></i></span>
+<input type="text" class="input-x-large numeric"  maxlength = 6 id = log_frm name="log_frm" placeholder="Employee ID">
+</div>
+</div>
+</div>
+<button  type="submit" class = 'btn btn-success' id = Login><span class="add-on"><i class="icon-ok"></i></span> Voting begins in 2 days</button>
+</div>
+</div>
+<div class = 'span3' >
+<div class="control-group" style="margin-top:5px;">
+<div class="controls">
+<label id = ctTimer></label>
+</div></div>
+</div>
+ </div>
+
+</script>
+<script type="text/template" id="voteTiles">
+<div class = 'row well'style="height:380px;">
+<div class = 'span3' style="height:350px;border-right:1px solid #eee;box-shadow:1px 3px 5px #aaa;">
+<ul class="nav nav-list">
+		<%	 _(mainevents).each(function(event,i) {%>
+            <li  class='evClas' id ='li_<%= event%>'   ><a id ="<%= event%>"  href="#"><%= event%></a></li>
+ <%}); %> 
+</ul>
+</div>
+<div class = 'span3' style="text-align:center;overflow-y:auto;width:70%;height:350px;border-right:1px solid #eee;box-shadow:0px 0px 5px #aaa;">
+<%	for(var i in eventMap) {%>
+<table class = tabu id ='tab_<%= i%>' style="margin-left:30%;display:none;" class = table-condensed>
+<%	 _(eventMap[i]).each(function(event,i) {%>
+
+		<tr><td><label class="control-label"><%= event.empname%></label></td>
+        <td><input type="text" id = "<%= event.empid%>" class="input-mini numeric100" maxlength = 3  value = 0 placeholder="Marks">	/ 100</td></tr>
+ <%}); %> 
+</table>
+<% } %> 
+</div>
+<div class = 'span12' style="text-align:center;margin-top:10px;">
+<button type="submit" class = 'btn btn-primary' id = VoteButton><span class="add-on"><i class="icon-ok-sign"></i></span> Done</button>
+<button type="submit" class = 'btn btn-danger' id = exitButton><span class="add-on"><i class="icon-remove-sign"></i></span> Exit</button>
+</div>
+
+</div>
+<div id = voteAlertdisp class="alert alert-error" style="display:none">  
+	<a class="close" onclick='$("#voteAlertdisp").hide()'>×</a>
+  <span id = voteAlert  ><strong>Warning!</strong> Best check yo self, you're not looking too good.</span>  
+</div>
+</script>
+<script type="text/template" id="Registration">
+<div class = row>
+<div class="well">
+
+<div id="regForm" class="form-horizontal">
+<legend>Register -for team outing</legend>
+<div class="control-group">
+<label class="control-label"><%= empIDlabel%></label>
+<div class="controls">
+  <div class="input-prepend">
+ <span class="add-on"><i class="icon-user"></i></span>
+<input type="text" class="input-xlarge numeric" maxlength = 6 id = rempID_frm name="rempID_frm" placeholder="Employee ID">
+</div>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label"><%= empNamlabel%></label>
+<div class="controls">
+  <div class="input-prepend">
+ <span class="add-on"><i class="icon-user"></i></span>
+<input type="text" class="input-xlarge"  id = rempNam_frm name="rempNam_frm" placeholder="Employee Name">
+</div>
+</div>
+</div>
+
+<div class="control-group">
+<label class="control-label"><%= eventslabel%></label>
+<div class="controls">
+  <div class="input-prepend">
+ <span class="add-on"><i class="icon-th-list"></i></span>
+<select class="input-xlarge" id = mainevents_frm   multiple="multiple">
+		<%	 _(mainevents).each(function(event) { %>
+            <option value="<%= event%>"><%= event%></option>
+ <%}); %>  
+</select>
+</div>
+</div>
+</div>
+
+<div class="control-group">
+<div class="controls">
+<button type="submit" class = 'btn btn-primary' id = regButton><span class="add-on"><i class="icon-ok-sign"></i></span> REGISTER</button>
+</div>
+</div>
+</div>
+
+</div>
+<div id = regAlertdisp class="alert alert-error" style="display:none">  
+	<a class="close" onclick='$("#regAlertdisp").hide()'>×</a>
+  <span id = regAlert  ><strong>Warning!</strong> Best check yo self, you're not looking too good.</span>  
+</div> 
+</div>
+</div>
+</script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/bootstrap-alert.js"></script>
+    <script src="bootstrap/js/bootstrap-pop.js"></script>
+</body>
+</html>
