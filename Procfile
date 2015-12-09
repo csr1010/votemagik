@@ -1,1 +1,1 @@
-web: sh target/bin/webapp
+ java -jar target/dependency/webapp-runner.jar target/*.war
