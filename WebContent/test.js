@@ -371,12 +371,12 @@ $(function(){
 	var deaddate =new Date(2013, 7-1, 12);
 	var currentdate = new Date();
 	var timeOute ;
-	timeOute = Math.floor(Math.random()*10*2)*1000;
-	if(currentdate.getDate() >=  deaddate.getDate())
+	timeOute = 6000000;
+	if(true)
 		{
 		
-		   $("#register :input").attr("disabled","disabled");
-		   $("#regButton").text("Registrations Closed");
+		   /*$("#register :input").attr("disabled","disabled");
+		   $("#regButton").text("Registrations Closed");*/
 		   $("#Login").html("<span class=add-on><i class=icon-ok></i></span> start Voting");
 		   var int=self.setInterval(function(){
 			   resultsObj.fetch( 
