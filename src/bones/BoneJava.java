@@ -209,7 +209,7 @@ public class BoneJava {
 			MongoClient mongoclinet  = new MongoClient(uri);
 			MongoDatabase db= mongoclinet.getDatabase("votemagik");
 			
-			int newInt = 0;
+			int newInt = 0;   
 			for(int i = 0 ;i<paramObject.getEmpMarks().size();i++){
 				iterable = db.getCollection("empEventsMarks");
 				Document empEventsMarksDoc = new Document();
